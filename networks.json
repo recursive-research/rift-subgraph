@@ -1,0 +1,26 @@
+{
+  "rinkeby": {
+    "Core": {
+      "address": "0xf82fDD20156320ee94C8102232159667497f7EF6",
+      "startBlock": 10705224
+    }
+  },
+  "goerli": {
+    "Core": {
+      "address": "0x789e4CA54804Ec9C4f73F926487d987C798DD575",
+      "startBlock": 6915169
+    }
+  },
+  "mainnet": {
+    "Core": {
+      "address": "0x5D7e616B2c0bf268494A482e315a60814F97dBC8",
+      "startBlock": 14845882
+    }
+  },
+  "aurora": {
+    "Core": {
+      "address": "0x40A01A4064b690cA33FA52d315ec02015eF5287E",
+      "startBlock": 61085345
+    }
+  }
+}

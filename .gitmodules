@@ -1,0 +1,3 @@
+[submodule "rift-protocol"]
+	path = rift-protocol
+	url = https://github.com/recursive-research/rift-protocol

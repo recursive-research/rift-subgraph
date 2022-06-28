@@ -1,0 +1,100 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Core
+    network: goerli
+    source:
+      abi: Core
+      startBlock: 6915169
+      address: "0x789e4CA54804Ec9C4f73F926487d987C798DD575"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Core
+      abis:
+        - name: Core
+          file: ./abis/Core.json
+        - name: Vault
+          file: ./abis/Vault.json
+        - name: Token
+          file: ./abis/ERC20Upgradeable.json
+        - name: MasterChefV2Vault
+          file: ./abis/MasterChefV2Vault.json
+      eventHandlers:
+        - event: FeeToUpdated(indexed address)
+          handler: handleFeeToUpdated
+        - event: Paused()
+          handler: handlePaused
+        - event: ProtocolFeeUpdated(uint256)
+          handler: handleProtocolFeeUpdated
+        - event: Unpaused()
+          handler: handleUnpaused
+        - event: VaultRegistered(indexed address)
+          handler: handleVaultRegistered
+        - event: VaultRemoved(indexed address)
+          handler: handleVaultRemoved
+      file: ./src/core.ts
+templates:
+  - kind: ethereum
+    name: Vault
+    network: goerli
+    source:
+      abi: Vault
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Vault
+        - Token
+        - Transaction
+      abis:
+        - name: Core
+          file: ./abis/Core.json
+        - name: Vault
+          file: ./abis/Vault.json
+        - name: Token
+          file: ./abis/ERC20Upgradeable.json
+        - name: MasterChefV2Vault
+          file: ./abis/MasterChefV2Vault.json
+      eventHandlers:
+        - event: AssetsClaimed(indexed bytes32,indexed address,uint256)
+          handler: handleAssetsClaimed
+        - event: EpochDurationUpdated(uint256)
+          handler: handleEpochDurationUpdated
+        - event: FundsRescued(indexed address)
+          handler: handleFundsRescued
+        - event: NextEpochStarted(indexed uint256,indexed address,uint256)
+          handler: handleNextEpochStarted
+        - event: DepositScheduled(indexed bytes32,indexed address,uint256,indexed uint256)
+          handler: handleDepositScheduled
+        - event: Paused()
+          handler: handlePaused
+        - event: Unpaused()
+          handler: handleUnpaused
+        - event: WithdrawScheduled(indexed bytes32,indexed address,uint256,indexed uint256)
+          handler: handleWithdrawScheduled
+        - event: Token0FloorUpdated(uint256)
+          handler: handleToken0FloorUpdated
+        - event: Token1FloorUpdated(uint256)
+          handler: handleToken1FloorUpdated
+      file: ./src/vault.ts
+  - kind: ethereum
+    name: Token
+    network: goerli
+    source:
+      abi: Token
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: Token
+          file: ./abis/ERC20Upgradeable.json
+      file: ./src/token.ts

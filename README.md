@@ -10,6 +10,18 @@ TODO: put full instructions here
 **Also required for local deployment:**
  -  [IPFS](https://github.com/ipfs/ipfs)
  - [postgres](https://gist.github.com/phortuin/2fe698b6c741fd84357cec84219c6667) 
+ - A running [Graph node](https://github.com/graphprotocol/graph-node) instance
+
+### Setting up / running IPFS
+
+`cd $GOPATH/src/github.com && mkdir ipfs && cd ipfs && git clone git@github.com:ipfs/go-ipfs.git`
+`make build && sudo mv cmd/ipfs/ipfs /usr/local/bin/`
+`ipfs init`
+`ipfs daemon &`
+
+### Running a Graph node
+
+`cargo run -p graph-node --release -- --postgres-url postgresql://user:pass@<host-url>:5432/graph-node --ethereum-rpc <goerli | mainnet | aurora>:https://<network>.alchemyapi.io/v2/<network-api-key> --ipfs <ipfs-host-ip>:5001`
 
 ## Overview
 
@@ -28,7 +40,6 @@ This file is known as the subgraph manifest. Here, we define some high-level inf
  - abis: all ABIs we use in writing our event handlers must be included here, so that code can be generated for interacting with our smart contracts. We pass the name of the generated class and the path to the ABI file.
  - _eventHandlers_: we pass the event signature and handler name that are relevant to each entity here (ie `FeeToUpdated(indexed address) -> handleFeeToUpdated`)
  - _entities_: any GraphQL entities used in the eventHandlers for a given entity must be specified
- - 
 
 ### src
 This is the code that defines how the indexers actually interact with our entities.

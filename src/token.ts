@@ -27,7 +27,6 @@ export function getOrCreateTokenInstance(id:Address):TokenInstance {
 
 	if (token == null) token = new TokenInstance(id.toHex());
 
-	token.address = id;
 	token.name = tokenContract.name();
 	token.symbol = tokenContract.symbol();
 	token.decimals = tokenContract.decimals();

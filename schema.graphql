@@ -1,43 +1,24 @@
-type Vault @entity {
-  id: ID!
-  address: Bytes!
-  core: Core!
-  epochDuration: BigInt!
-  token0: Token! @relation
-  token1: Token! @relation
-  token0Balance: BigInt!
-  token1Balance: BigInt!
-  paused: Boolean!
-  vaultType:String! # [Sushi, Uni2, Uni3, ...]
+enum VaultType {
+  UNISWAP_V2
+  SUSHI_SWAP
 }
-
 
 type Core @entity {
   id: ID!
-  address: Bytes!
-  maxFee: BigInt!
-  paused: Boolean!
   vaults: [Vault!]! @derivedFrom(field: "core")
 }
 
 type Token @entity {
   id: ID!
-  address: Bytes!
   name: String!
   symbol: String!
   decimals: Int!
 }
 
-type Transaction @entity {
+type Vault @entity {
   id: ID!
-  account: Account!
-  amount: BigInt!
-  from: Bytes!
-  
-}
-
-type Account @entity {
-  id: ID!
-  address:Bytes!
-  transactions: [Transaction!]! @derivedFrom(field: "account")
+  core: Core!
+  token0: Token! @relation
+  token1: Token! @relation
+  vaultType:VaultType!
 }

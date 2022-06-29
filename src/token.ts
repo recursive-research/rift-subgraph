@@ -14,18 +14,19 @@ import {
 	Token as TokenTemplate,
 } from "../generated/templates"
 
-export function getOrCreateTokenInstance(id:Address):TokenInstance {
-	let token = TokenInstance.load(id.toHex());
+export function getOrCreateTokenInstance(addr:Address):TokenInstance {
+	let id = addr.toHex()
+	let token = TokenInstance.load(id);
 
 	if (token!=null) return token;
 
-	let tokenContract = TokenContract.bind(id);
+	let tokenContract = TokenContract.bind(addr);
 
-	TokenTemplate.create(id);
+	TokenTemplate.create(addr);
 
-	token = TokenInstance.load(id.toHex());
+	token = TokenInstance.load(id);
 
-	if (token == null) token = new TokenInstance(id.toHex());
+	if (token == null) token = new TokenInstance(id);
 
 	token.name = tokenContract.name();
 	token.symbol = tokenContract.symbol();

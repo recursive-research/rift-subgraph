@@ -1,7 +1,10 @@
 import { Address } from "@graphprotocol/graph-ts";
 
 import { Core as CoreInstance } from "../generated/schema";
-import { VaultRegistered } from "../generated/Core/Core";
+import {
+  VaultRegistered,
+  VaultRegistered1 as VaultRegistered_old
+} from "../generated//Core/Core";
 
 import { getOrCreateVault } from "./vault";
 import { addressToId } from "./utils";
@@ -23,9 +26,17 @@ function initializeCore(addr: Address): CoreInstance {
 }
 
 export function handleVaultRegistered(event: VaultRegistered): void {
-  let core = getOrCreateCore(event.address);
+  handleVaultRegisteredBase(event.address, event.params.vault);
+}
+
+export function handleVaultRegistered_old(event: VaultRegistered_old): void {
+  handleVaultRegisteredBase(event.address, event.params.vault);
+}
+
+function handleVaultRegisteredBase(addr: Address, vaultAddr: Address): void {
+  let core = getOrCreateCore(addr);
   core.save();
 
-  let vault = getOrCreateVault(event.params.vault);
+  let vault = getOrCreateVault(vaultAddr);
   vault.save();
 }

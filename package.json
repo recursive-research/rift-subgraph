@@ -4,8 +4,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ recursive-research/rift-subgraph",
-    "deploy-aurora": "graph deploy --node https://api.thegraph.com/deploy/ --network aurora recursive-research/rift-aurora",
+    "deploy": "graph deploy --product hosted-service --network mainnet recursive-research/rift-subgraph",
+    "deploy-aurora": "graph deploy --product hosted-service --network aurora recursive-research/rift-subgraph-aurora",
     "create-local": "graph create --node http://localhost:8020/ recursive-research/rift-subgraph",
     "remove-local": "graph remove --node http://localhost:8020/ recursive-research/rift-subgraph",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://127.0.0.1:5001 recursive-research/rift-subgraph",

@@ -1,39 +1,35 @@
-import { Address } from '@graphprotocol/graph-ts'
+import { Address } from "@graphprotocol/graph-ts";
 
-import { Token as TokenContract } from '../generated/templates/Token/Token'
+import { Token as TokenContract } from "../generated/templates/Token/Token";
+import { Token as TokenInstance } from "../generated/schema";
+import { Token as TokenTemplate } from "../generated/templates";
 
-import { Token as TokenInstance } from '../generated/schema'
+import { addressToId } from "./utils";
 
-import { Token as TokenTemplate } from '../generated/templates'
+export function getOrCreateToken(addr: Address): TokenInstance {
+  let token = TokenInstance.load(addressToId(addr));
 
-import {
-	addressToId,
-} from './utils';
+  if (token != null) return token;
 
-export function getOrCreateToken(addr:Address):TokenInstance {
-	let token = TokenInstance.load(addressToId(addr));
+  token = initializeToken(addr);
+  token.save();
 
-	if (token!=null) return token;
-
-	token = initializeToken(addr);
-	token.save();
-
-	return token;
+  return token;
 }
 
-function initializeToken(addr:Address):TokenInstance {
-	let tokenContract = TokenContract.bind(addr);
-	
-	TokenTemplate.create(addr);
+function initializeToken(addr: Address): TokenInstance {
+  let tokenContract = TokenContract.bind(addr);
 
-	const id = addressToId(addr);
-	let token = TokenInstance.load(id);
+  TokenTemplate.create(addr);
 
-	if (token == null) token = new TokenInstance(id);
+  const id = addressToId(addr);
+  let token = TokenInstance.load(id);
 
-	token.name = tokenContract.name();
-	token.symbol = tokenContract.symbol();
-	token.decimals = tokenContract.decimals();
+  if (token == null) token = new TokenInstance(id);
 
-	return token;
+  token.name = tokenContract.name();
+  token.symbol = tokenContract.symbol();
+  token.decimals = tokenContract.decimals();
+
+  return token;
 }

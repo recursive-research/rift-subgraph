@@ -9,7 +9,6 @@ import {
 import { getOrCreateVault } from "./vault";
 import { addressToId } from "./utils";
 
-// tries to get an instance of core. If it fails, it creates one
 export function getOrCreateCore(addr: Address): CoreInstance {
   let core = CoreInstance.load(addressToId(addr));
 

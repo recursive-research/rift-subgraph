@@ -5,7 +5,7 @@ import { Vault as VaultInstance } from "../generated/schema";
 import { MasterChefVault as VaultContract } from "../generated/templates/Vault/MasterChefVault";
 
 import { getOrCreateToken } from "./token";
-import { addressToId } from "./utils";
+import { addressToId, idToAddress } from "./utils";
 
 export const VAULT_TYPE_SUSHI = "SUSHI_SWAP";
 export const VAULT_TYPE_UNI_V2 = "UNISWAP_V2";
@@ -40,7 +40,7 @@ function initializeVault(addr: Address): VaultInstance {
   let token0 = getOrCreateToken(vaultContract.token0());
   let token1 = getOrCreateToken(vaultContract.token1());
 
-  vault.type = vaultType(Address.fromString(vault.id));
+  vault.type = vaultType(idToAddress(vault.id));
   vault.token0 = token0.id;
   vault.token1 = token1.id;
   vault.core = addressToId(vaultContract.core());

@@ -20,5 +20,5 @@ type Vault @entity {
   core: Core!
   token0: Token! @relation
   token1: Token! @relation
-  vaultType:VaultType!
+  type: VaultType!
 }

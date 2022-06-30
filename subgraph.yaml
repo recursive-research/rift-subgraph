@@ -25,6 +25,8 @@ dataSources:
       eventHandlers:
         - event: VaultRegistered(indexed address)
           handler: handleVaultRegistered
+        - event: VaultRegistered(indexed address,indexed address)
+          handler: handleVaultRegistered_old
         - event: VaultRemoved(indexed address)
           handler: handleVaultRemoved
       file: ./src/core.ts

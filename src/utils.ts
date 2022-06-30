@@ -24,7 +24,7 @@ export function getVaultBalance(vaultAddr:Address, tokenAddr:Address):BigInt {
 }
 
 export function addressToId(addr:Address):string {
-	return getChecksumAddress(addr);
+	return addr.toHex();
 }
 
 export function idToAddress(id:string):Address {

@@ -36,11 +36,7 @@ function initializeCore(addr:Address):CoreInstance {
 }
 
 export function handleVaultRegistered(event:VaultRegistered):void {
-	let addr = event.transaction.to;
-
-	if (!addr) return;
-
-	let core =  getOrCreateCore(addr);
+	let core =  getOrCreateCore(event.address);
 	core.save();
 
 	let vault = getOrCreateVault(event.params.vault);

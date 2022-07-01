@@ -15,9 +15,14 @@ type Token @entity {
   decimals: Int!
 }
 
+type Pair @entity {
+  id: ID!
+}
+
 type Vault @entity {
   id: ID!
   core: Core!
+  pair: Pair! @relation
   token0: Token! @relation
   token1: Token! @relation
   type: VaultType!

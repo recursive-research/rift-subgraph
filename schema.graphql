@@ -1,0 +1,29 @@
+enum VaultType {
+  UNISWAP_V2
+  SUSHI_SWAP
+}
+
+type Core @entity {
+  id: ID!
+  vaults: [Vault!]! @derivedFrom(field: "core")
+}
+
+type Token @entity {
+  id: ID!
+  name: String!
+  symbol: String!
+  decimals: Int!
+}
+
+type Pair @entity {
+  id: ID!
+}
+
+type Vault @entity {
+  id: ID!
+  core: Core!
+  pair: Pair! @relation
+  token0: Token! @relation
+  token1: Token! @relation
+  type: VaultType!
+}

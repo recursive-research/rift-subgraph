@@ -1,0 +1,18 @@
+{
+  "name": "rift-subgraph",
+  "license": "GPL-3.0",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph codegen --network mainnet && graph build --network mainnet && graph deploy --product hosted-service --network mainnet recursive-research/rift-subgraph",
+    "deploy-aurora": "graph codegen --network aurora && graph build --network aurora && graph deploy --product hosted-service --network aurora recursive-research/rift-subgraph-aurora",
+    "create-local": "graph create --node http://localhost:8020/ recursive-research/rift-subgraph",
+    "remove-local": "graph remove --node http://localhost:8020/ recursive-research/rift-subgraph",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://127.0.0.1:5001 recursive-research/rift-subgraph",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.31.0",
+    "@graphprotocol/graph-ts": "0.27.0"
+  }
+}
